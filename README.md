@@ -16,11 +16,16 @@
 
 <br><br>
 
+
+[![Play Now](https://img.shields.io/badge/▶_Play_Now-ff5fa2?style=for-the-badge)](https://tasnimasajid.github.io/ColorBridge/)
+&nbsp;
 ![HTML5](https://img.shields.io/badge/HTML5_Canvas-e34f26?style=for-the-badge&logo=html5&logoColor=white)
 &nbsp;
 ![JavaScript](https://img.shields.io/badge/Vanilla_JS-f7df1e?style=for-the-badge&logo=javascript&logoColor=black)
 &nbsp;
 ![No dependencies](https://img.shields.io/badge/Dependencies-0-22d3ee?style=for-the-badge)
+
+**▶ Play it live:** [tasnimasajid.github.io/ColorBridge](https://tasnimasajid.github.io/ColorBridge/) — open on any phone or browser.
 
 </div>
 
@@ -72,13 +77,13 @@ The core loop is a single gesture: hold to extend a bridge, release to drop it. 
 | Drop the bridge | **Release** |
 | Pause | Tap the **❚❚** button (top-left) |
 
-That's the whole game — one button. 🙂
+That's the whole game one button. 🙂
 
 ## Tech Overview
 
 Color Bridge is a plain static web app (HTML + CSS + JavaScript) with no build step and no dependencies. Everything is drawn to a single `<canvas>`, and all art, animation, and sound is generated procedurally in code.
 
-The codebase is organized as clean, modular vanilla JavaScript — one concern per file:
+The codebase is organized as clean, modular vanilla JavaScript ( one concern per file ) :
 
 | File | Responsibility |
 | --- | --- |
