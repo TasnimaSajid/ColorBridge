@@ -25,8 +25,6 @@
 &nbsp;
 ![No dependencies](https://img.shields.io/badge/Dependencies-0-22d3ee?style=for-the-badge)
 
-**▶ Play it live:** [tasnimasajid.github.io/ColorBridge](https://tasnimasajid.github.io/ColorBridge/) — open on any phone or browser.
-
 </div>
 
 ---
