@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1c2258">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Color Bridge</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Game canvas (world rendering) -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- ===== In-game HUD ===== -->
+    <div id="hud" class="hidden">
+      <button id="btn-pause" class="icon-btn" aria-label="Pause">
+        <span class="pause-bars"><i></i><i></i></span>
+      </button>
+      <div class="hud-mid">
+        <div id="hud-score">0</div>
+        <div id="hud-level">LEVEL 1</div>
+      </div>
+      <div id="hud-gems" class="gem-pill"><span class="gem-icon"></span><span id="hud-gem-count">0</span></div>
+    </div>
+
+    <!-- ===== Home screen ===== -->
+    <div id="screen-home" class="screen">
+      <div class="home-top">
+        <div id="home-streak" class="streak-chip hidden">🔥 <span id="home-streak-count">Day 1</span></div>
+        <div id="home-gems" class="gem-pill big"><span class="gem-icon"></span><span id="home-gem-count">0</span></div>
+      </div>
+      <h1 class="logo">Color<br>Bridge</h1>
+      <div class="tagline">HOLD · BUILD · CROSS</div>
+      <div class="stats-row">
+        <div class="stat-chip">🏆<b id="home-best">0</b><span>best</span></div>
+        <div class="stat-chip">🎯<b id="home-perfects">0</b><span>perfects</span></div>
+        <div class="stat-chip">🌉<b id="home-crossings">0</b><span>bridges</span></div>
+      </div>
+      <div id="home-stage" title="Change character">
+        <div class="stage-glow"></div>
+        <canvas id="home-char" width="140" height="140"></canvas>
+        <div id="home-char-name" class="char-name">Pip</div>
+      </div>
+      <button id="btn-play" class="btn btn-play">PLAY</button>
+      <button id="btn-endless" class="btn btn-sub wide">∞ &nbsp;Endless</button>
+      <div class="home-row">
+        <button id="btn-shop" class="btn btn-sub"><span class="btn-emoji">🛍️</span>Shop</button>
+        <button id="btn-achievements" class="btn btn-sub"><span class="btn-emoji">🏅</span>Awards</button>
+        <button id="btn-settings" class="btn btn-sub"><span class="btn-emoji">⚙️</span>Settings</button>
+      </div>
+    </div>
+
+    <!-- ===== Level map ===== -->
+    <div id="screen-levels" class="screen panel-screen hidden">
+      <div class="panel-head">
+        <button class="icon-btn btn-back" aria-label="Back">‹</button>
+        <h2>Levels</h2>
+        <div id="levels-stars" class="ach-progress">★ 0/60</div>
+      </div>
+      <div id="level-grid" class="level-grid"></div>
+    </div>
+
+    <!-- ===== Level complete ===== -->
+    <div id="screen-levelcomplete" class="screen overlay hidden">
+      <div class="dialog">
+        <h2 id="lc-title">Level 1 clear!</h2>
+        <div class="stars-row">
+          <span id="lc-star-1" class="star">★</span>
+          <span id="lc-star-2" class="star">★</span>
+          <span id="lc-star-3" class="star">★</span>
+        </div>
+        <div class="go-stats">
+          <div class="go-stat"><span class="gem-icon"></span> <b id="lc-gems">+0</b></div>
+          <div class="go-stat">🎯 <b id="lc-perfects">0</b></div>
+        </div>
+        <button id="btn-next-level" class="btn btn-play">Next level</button>
+        <button id="btn-replay-level" class="btn btn-sub wide">Replay</button>
+        <button id="btn-lc-map" class="btn btn-sub wide">Map</button>
+      </div>
+    </div>
+
+    <!-- ===== Level failed ===== -->
+    <div id="screen-levelfail" class="screen overlay hidden">
+      <div class="dialog">
+        <h2 id="lf-title">Level 1</h2>
+        <div id="lf-progress" class="lf-progress">3/8 bridges crossed</div>
+        <button id="btn-retry-level" class="btn btn-play">Retry</button>
+        <button id="btn-lf-map" class="btn btn-sub wide">Map</button>
+      </div>
+    </div>
+
+    <!-- ===== Shop screen ===== -->
+    <div id="screen-shop" class="screen panel-screen hidden">
+      <div class="panel-head">
+        <button class="icon-btn btn-back" aria-label="Back">‹</button>
+        <h2>Shop</h2>
+        <div class="gem-pill"><span class="gem-icon"></span><span id="shop-gem-count">0</span></div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-tab="chars">Characters</button>
+        <button class="tab" data-tab="bridges">Bridges</button>
+        <button class="tab" data-tab="themes">Themes</button>
+      </div>
+      <div id="shop-grid" class="shop-grid"></div>
+    </div>
+
+    <!-- ===== Achievements screen ===== -->
+    <div id="screen-achievements" class="screen panel-screen hidden">
+      <div class="panel-head">
+        <button class="icon-btn btn-back" aria-label="Back">‹</button>
+        <h2>Achievements</h2>
+        <div id="ach-progress" class="ach-progress">0/0</div>
+      </div>
+      <div id="ach-list" class="ach-list"></div>
+    </div>
+
+    <!-- ===== Settings screen ===== -->
+    <div id="screen-settings" class="screen panel-screen hidden">
+      <div class="panel-head">
+        <button class="icon-btn btn-back" aria-label="Back">‹</button>
+        <h2>Settings</h2>
+        <div></div>
+      </div>
+      <div class="settings-list">
+        <label class="setting-row">🎵 Music
+          <input type="checkbox" id="toggle-music"><span class="switch"></span>
+        </label>
+        <label class="setting-row">🔊 Sound effects
+          <input type="checkbox" id="toggle-sfx"><span class="switch"></span>
+        </label>
+        <label class="setting-row">📳 Vibration
+          <input type="checkbox" id="toggle-vibration"><span class="switch"></span>
+        </label>
+      </div>
+      <button id="btn-reset-save" class="btn btn-danger">Reset progress</button>
+      <p class="credits">Color Bridge · all art &amp; sound generated in-game</p>
+    </div>
+
+    <!-- ===== Pause overlay ===== -->
+    <div id="screen-pause" class="screen overlay hidden">
+      <div class="dialog">
+        <h2>Paused</h2>
+        <button id="btn-resume" class="btn btn-play">Resume</button>
+        <button id="btn-restart" class="btn btn-sub wide">Restart</button>
+        <button id="btn-quit" class="btn btn-sub wide">Home</button>
+      </div>
+    </div>
+
+    <!-- ===== Game over overlay ===== -->
+    <div id="screen-gameover" class="screen overlay hidden">
+      <div class="dialog">
+        <div id="go-newbest" class="new-best hidden">NEW BEST!</div>
+        <div class="go-score-label">SCORE</div>
+        <div id="go-score" class="go-score">0</div>
+        <div class="go-stats">
+          <div class="go-stat">🏆 Best <b id="go-best">0</b></div>
+          <div class="go-stat"><span class="gem-icon"></span> <b id="go-gems">+0</b></div>
+          <div class="go-stat">🎯 <b id="go-perfects">0</b></div>
+          <div class="go-stat">🚩 Level <b id="go-level">1</b></div>
+        </div>
+        <button id="btn-retry" class="btn btn-play">Play again</button>
+        <button id="btn-go-home" class="btn btn-sub wide">Home</button>
+      </div>
+    </div>
+
+    <!-- ===== Daily reward modal ===== -->
+    <div id="modal-daily" class="screen overlay hidden">
+      <div class="dialog daily">
+        <h2>Daily Gift 🎁</h2>
+        <div id="daily-streak" class="daily-streak">Day 1</div>
+        <div class="daily-reward"><span class="gem-icon big"></span><span id="daily-amount">+25</span></div>
+        <button id="btn-claim-daily" class="btn btn-play">Claim</button>
+      </div>
+    </div>
+
+    <!-- Toast notifications (achievements etc.) -->
+    <div id="toast-holder"></div>
+  </div>
+
+  <!-- Modules: data → helpers → systems → game → UI → bootstrap -->
+  <script src="js/utils.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/background.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/character.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
