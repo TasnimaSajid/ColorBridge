@@ -1,12 +1,12 @@
 <div align="center">
 
-# 🌉 Color Bridge
+#  🌈Color Bridge
 
 ### A relaxing, one-touch bridge-building game for the browser.
 
 **Press & hold** to grow a colorful bridge → **release** to drop it onto the next tower → land in the center for a **PERFECT**. Easy to learn, hard to master.
 
-*Every pixel, animation, sound, and note is generated in code — the game ships **zero image or audio files** and contains only original work.*
+*Every pixel, animation, sound, and note is generated in code the game ships **zero image or audio files** and contains only original work.*
 
 <br>
 
